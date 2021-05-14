@@ -71,8 +71,8 @@ def cal(f1,filen):
     #     f.write('noo = {}\n'.format(count[2][2]))
 
 def main():
-    f1 = 'e5.txt'
-    filen = 'data.txt'
+    f1 = 'e5.txt'               #格点信息文件
+    filen = 'data.txt'          #输出数据文件
     ls = pathFind(f1)
     for i in ls :
         f2 = os.path.join(i,f1)
@@ -81,10 +81,10 @@ def main():
 
 if __name__ == "__main__":
     start = time.time()
-    kindn = 5
-    lx = 60
-    ly = 60
-    lz = 60
+    kindn = 5                   #组分数目
+    lx = 60                     #
+    ly = 60                     #
+    lz = 60                     #盒子边长
     ln = [lx,ly,lz]
     llx = lx/2
     lly = ly/2
