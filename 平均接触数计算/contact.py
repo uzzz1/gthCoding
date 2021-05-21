@@ -22,14 +22,14 @@ def neibor():                                                ###规定近邻，�
     return nna
 
 def numCount(nna):                                           ###计算每一种格点周围的近邻
-    count = np.zeros((kindn-1,kindn-1),dtype=float)
-    for i in range(1,kindn):
+    count = np.zeros((kindn,kindn),dtype=float)
+    for i in range(1,kindn+1):
         index = (pointInf[:,3] == i)
         neiInd = nna[index]
         n = len(neiInd)
         countList = pointInf[neiInd]
         for j in countList:
-            for k in range(1,kindn-1):
+            for k in range(1,kindn+1):
                 numInd = (j[:,3] == k)
                 tem = j[numInd]
                 count[i-1][k-1] += len(tem)
