@@ -1,18 +1,18 @@
 import numpy as np
 import os
 import time
-def readin(name):                                            ###无需优化
+def readin(name):                                            ###读入格点信息，可以直接用，前提是文件中需要全部是数字字符
     f = np.loadtxt(name,dtype=int)
     return f
 
-def period(arr,peri,limit0,limit1):                          ###输入参数：数组，周期，下限，上限
+def period(arr,peri,limit0,limit1):                          ###周期性边界条件函数，输入参数：数组，周期，下限，上限
     index = (arr > limit1)
     arr[index] = arr[index] - peri
     index = (arr < limit0)
     arr[index] = arr[index] + peri
     return arr
 
-def neibor():                                                ###优化完成
+def neibor():                                                ###规定近邻，采用18近邻
     nearPool = np.array([[i,j,k] for i in range(-1,2) for j in range(-1,2) for k in range(-1,2) if 0<i**2+j**2+k**2<3])
     nearList = np.array([pointInf[:,:3] + i for i in nearPool]).reshape(-1,3)
     for i in range(3):
@@ -21,7 +21,7 @@ def neibor():                                                ###优化完成
     nna = (nearList[:,0]*ly*lz+nearList[:,1]*lz+nearList[:,2]).reshape((-1,18))
     return nna
 
-def numCount(nna):
+def numCount(nna):                                           ###计算每一种格点周围的近邻
     count = np.zeros((kindn-1,kindn-1),dtype=float)
     for i in range(1,kindn):
         index = (pointInf[:,3] == i)
@@ -36,7 +36,7 @@ def numCount(nna):
         count[i-1] = count[i-1]/n
     return count
 
-def pathFind(f1):
+def pathFind(f1):                                            ###路径寻找，以便于计算这一文件所在文件夹下所有的平均接触数
     ls = []
     pathNow = os.getcwd()
     for root,_,files in os.walk(pathNow):
